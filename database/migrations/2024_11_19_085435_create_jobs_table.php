@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\JobSchedule;
 use App\Models\Employer;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -18,7 +19,7 @@ return new class extends Migration
             $table->string("title");
             $table->string("salary");
             $table->string("location");
-            $table->string("schedule")->default('Full Time');
+            $table->string("schedule")->default(JobSchedule::FULL_TIME->value);
             $table->string("url");
             $table->boolean("featured")->default(false);
             $table->timestamps();

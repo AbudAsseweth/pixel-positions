@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\JobSchedule;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,6 +10,10 @@ class Job extends Model
 {
     /** @use HasFactory<\Database\Factories\JobFactory> */
     use HasFactory;
+
+    protected $guarded = [
+        "id",
+    ];
 
     public function employer()
     {
@@ -25,5 +30,12 @@ class Job extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'schedule' => JobSchedule::class,
+        ];
     }
 }

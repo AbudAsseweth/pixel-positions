@@ -13,6 +13,6 @@ class TagSeeder extends Seeder
      */
     public function run(): void
     {
-        collect(["Laravel", "Vue", "React"])->each(fn($tag) => Tag::create(["name" => $tag]));
+        collect(["laravel", "vue", "react"])->each(fn($tag) => Tag::create(["name" => $tag]));
     }
 }

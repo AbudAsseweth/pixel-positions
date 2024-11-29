@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.selection .select2-selection {
+    @apply bg-white/10 border border-white/10 px-5 py-2;
+}
+
+.select2-results__option--selectable {
+    @apply bg-gray-600;
+}
+
+.select2-container--default .select2-results__option--selected {
+    @apply bg-gray-800;
+}
+
+.select2-container .select2-selection--multiple .select2-selection__rendered {
+    @apply flex items-center gap-x-2;
+}
+
+.select2-container--default
+    .select2-selection--multiple
+    .select2-selection__choice {
+    @apply bg-white/5 ml-0 mt-0;
+}

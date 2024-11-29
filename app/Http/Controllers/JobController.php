@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\JobSchedule;
 use App\Models\Job;
-use App\Http\Requests\StoreJobRequest;
 use App\Http\Requests\UpdateJobRequest;
 use App\Models\Tag;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Validation\Rule;
 
 class JobController extends Controller
 {
@@ -14,7 +17,7 @@ class JobController extends Controller
      */
     public function index()
     {
-        $allJob = Job::with(['tags', 'employer'])->get()->groupBy('featured');
+        $allJob = Job::with(['tags', 'employer'])->latest()->get()->groupBy('featured');
         $jobs = $allJob[0];
         $featuredJobs = $allJob[1];
         $tags = Tag::all();
@@ -27,15 +30,31 @@ class JobController extends Controller
      */
     public function create()
     {
-        //
+        $tags = Tag::query()->select("id", "name")->get();
+        return view("jobs.create", compact("tags"));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreJobRequest $request)
+    public function store(Request $request)
     {
-        //
+        $attrs = $request->validate([
+            "title" => "required",
+            "salary" => "required",
+            "location" => "required",
+            "schedule" => ['required', Rule::enum(JobSchedule::class)],
+            "tags" => "array|required",
+            "url" => 'required',
+        ]);
+
+        $attrs['featured'] = $request->has("featured");
+        $attrs = Arr::except($attrs, ['tags']);
+
+        $job = $request->user()->employer->jobs()->create($attrs);
+        $job->tags()->attach($request->tags);
+
+        return to_route("home");
     }
 
     /**

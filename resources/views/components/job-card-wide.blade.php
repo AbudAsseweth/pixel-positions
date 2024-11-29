@@ -2,7 +2,7 @@
 
 <x-panel>
     <div>
-        <x-employer-logo></x-employer-logo>
+        <x-employer-logo :employer="$job->employer"></x-employer-logo>
     </div>
 
     <div class="ml-10 flex flex-1 flex-col">

@@ -2,12 +2,11 @@
     <div class="space-y-10 pb-12">
 
         <section class="pt-6 text-center">
-            <h1 class="text-4xl font-bold">Let's Find Your Next Job</h1>
+            <h1 class="mb-8 text-4xl font-bold">Let's Find Your Next Job</h1>
 
-            <form action="" class="mt-6">
-                <input type="text" placeholder="Web Developer..."
-                    class="w-full max-w-xl rounded-xl border border-white/10 bg-white/5 px-5 py-4">
-            </form>
+            <x-forms.form action="/search">
+                <x-forms.input name="q" class="max-w-xl bg-white/5" />
+            </x-forms.form>
         </section>
 
         <section class="pt-10">

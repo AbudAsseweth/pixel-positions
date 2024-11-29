@@ -16,4 +16,9 @@ class Tag extends Model
     {
         return $this->belongsToMany(Job::class);
     }
+
+    public function getRouteKeyName(): string
+    {
+        return 'name';
+    }
 }
